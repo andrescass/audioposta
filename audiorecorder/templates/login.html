@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<title>Log in - Notas de Voz</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Latest compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+	<img src="{% static '/img/logo-posta.png' %}" >
+	<h1>Log in</h1>	
+
+	<div id="input_form">
+        <!--form id="login_form"-->
+            <div class="form_group">
+                <label for="id_username">Usuario o email</label>
+                <input type="text" id="id_username" placeholder="Usuario o email"/>
+            </div>
+            <div class="form_group">
+                <label for="id_password">Password</label>
+                <input type="password" id="id_password" placeholder="password"/>
+            </div>
+            <button id="loginButton">Ingresar</button>
+        <!--/form-->
+	</div>
+
+    <div id="message_div"></div>
+
+	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+	<script src="{% static '/js/login.js' %}"></script>
+
+</body>
+</html>

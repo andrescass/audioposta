@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<title>Log in - Notas de Voz</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Latest compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+	<!--img src="{% static '/img/logo-posta.png' %}" -->
+    <div class="topnav" id="topnav">
+        <p id="name_salute"></p><a id="logout_nav" href="#">Log out</a><a id="changepass_nav" href="#">Cambiar contraseña</a>    
+    </div>
+	<h1>Podcasts</h1>	
+
+	<div id="podcast_list">
+        <!--form id="login_form"-->
+        <div id="hacker-list">
+            <table>
+                <!-- IMPORTANT, class="list" have to be at tbody -->
+                <tbody class="list">
+                    <input type="search" class="search" placeholder="Filtrar">
+                  <tr >
+                      <td class="podcast"><b>Podcast</b></td>
+                      <td class="author"><b>Autor</b></td>
+                      <td class="email"><b>e-mail</b></td>
+                      <td class="dateStr"><b>Fecha</b></td>
+                      <td class="hourStr"><b>Hora</b></td>
+                      <td class="audiomsg" style="width: 25em;"><b>Mensaje</b></td>
+                      <td class="remove"></td>
+                  </tr>
+          </div>
+        <!--/form-->
+	</div>
+
+    <div id="message_div"></div>
+
+	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+	<script src="{% static '/js/list.js' %}"></script>
+    <script src="{% static '/js/podcastlist.js' %}"></script>
+    
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<title>Test Notas de Voz</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Latest compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+	<img src="{% static '/img/logo-posta.png' %}" >
+	<h1>Test - Grabador de voz</h1>	
+
+	<div id="input_form">
+		<div class="form_group">
+			<label for="id_name">Nombre</label>
+			<input type="text" id="id_name" placeholder="Nombre"/>
+		</div>
+		<div class="form_group">
+			<label for="id_email">Nombre</label>
+			<input type="email" id="id_email" placeholder="e-mail"/>
+		</div>
+		<div class="form_group">
+			<label for="id_podcast">Nombre</label>
+			<select id="id_podcast">
+				<option value="HT">Hoy Trasnoche</option>
+				<option value="trap">Es una trampa</option>
+				<option value="hodor">Hodor Hodor Hodor</option>
+			</select>
+		</div>
+	</div>
+
+	<div id="audio_input" style="max-width: 28em;">
+		<div id="timers">
+			<span id="up_timer"></span>
+			<span id="down_timer" style="float: right;"></span>
+		</div>
+		<div id="controls">
+			<button id="recordButton">Grabar</button>
+			<button id="stopButton" disabled>Parar</button>
+		</div>
+		<ol id="recordingsList"></ol>
+	</div>
+
+	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+	<script src="{% static '/js/WebAudioRecorder.min.js' %}"></script>
+	<script src="{% static '/js/app.js' %}"></script>
+
+</body>
+</html>
