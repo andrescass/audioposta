@@ -83,7 +83,7 @@ function showLists(hackerList)
                   hackerList = new List('hacker-list', options, values);
                   for(let i = 1; i < j.length; i++)
                   {
-                      audio_i = '<audio controls="controls" src="' + j[1].audio_url + '" type="audio/mpeg">'; 
+                      audio_i = '<audio controls="controls" src="' + j[i].audio_url + '" type="audio/mpeg">'; 
                       hackerList.add(
                         { audioName:j[i].audio_url, 
                             podcast: j[i].podcast.name, 
