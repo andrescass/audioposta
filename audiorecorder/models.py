@@ -18,7 +18,7 @@ class audioEntry(models.Model):
     audioFile = models.FileField(upload_to=upload_to, blank=False, null=True)
 
 class Podcast(models.Model):
-    shortname = models.TextField(max_length=5, null=False, blank=False)
+    shortname = models.TextField(max_length=5, null=False, blank=False, default="pod")
     name = models.TextField(max_length=50, blank=False, null=False)
 
 class podcastuser(AbstractUser):
