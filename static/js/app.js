@@ -224,7 +224,8 @@ function createDownloadLink(blob,encoding) {
 		fd.append("audioFile", blob, filename+ '-' +encoding);
 		xhr.open("POST", baseServerUrl+"/api/audio-post/", true);
 		xhr.send(fd);
-
+		
+		recordingsList.innerHTML = "";
 		
 	}
 
