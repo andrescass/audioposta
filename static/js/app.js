@@ -190,7 +190,7 @@ function createDownloadLink(blob,encoding) {
 		var minutes = `${now.getMinutes()}`.length < 2 ? `0${now.getMinutes()}`:`${now.getMinutes()}`;
 		var seconds = `${now.getSeconds()}`.length < 2 ? `0${now.getSeconds()}`:`${now.getSeconds()}`;
 		var hours = `${now.getHours()}${minutes}${seconds}`;
-		var filename = podcast + '_' + full_date + hours;
+		var filename = podcast + '_' + full_date + hours + now.getMilliseconds;
 		var xhr = new XMLHttpRequest();
     	xhr.onload = function(e) {
 			if (this.readyState === 4) {
@@ -213,6 +213,10 @@ function createDownloadLink(blob,encoding) {
 					})
 				}).then( response => {
 					console.log(response.json());
+					if(response.ok)
+					{
+						recordingsList.innerHTML = "";
+					}
 				}).then(data => {
 					console.log(data);
 				}).catch((error) => {
@@ -224,8 +228,6 @@ function createDownloadLink(blob,encoding) {
 		fd.append("audioFile", blob, filename+ '-' +encoding);
 		xhr.open("POST", baseServerUrl+"/api/audio-post/", true);
 		xhr.send(fd);
-		
-		recordingsList.innerHTML = "";
 		
 	}
 
