@@ -200,7 +200,7 @@ function createDownloadLink(blob,encoding) {
 				fetch(baseServerUrl+"/api/entry-post/", {
 					method: 'POST',
 					headers: {
-						//'Content-Type': 'application/json',
+						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({
 						"author_email": email,
