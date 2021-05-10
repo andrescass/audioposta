@@ -6,7 +6,7 @@ URL = window.URL || window.webkitURL;
 var logout_link = document.getElementById("logout_nav");
 var pass_link = document.getElementById("changepass_nav");
 
-var baseServerUrl = "http://127.0.0.1:8000"
+var baseServerUrl = "http://postarecorder.pythonanywhere.com"
 
 if(localStorage.hasOwnProperty('posta_token'))
 {

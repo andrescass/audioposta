@@ -21,7 +21,7 @@ stopButton.addEventListener("click", stopRecording);
 
 // Auxiliar flags
 var hasRecorded = false;
-var baseServerUrl = "http://127.0.0.1:8000"
+var baseServerUrl = "http://postarecorder.pythonanywhere.com"
 
 // Timers
 var upTime = document.getElementById("up_timer");
