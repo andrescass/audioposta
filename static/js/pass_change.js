@@ -8,7 +8,7 @@ var passButton = document.getElementById('passButton');
 var msgdiv = document.getElementById('message_div');
 
 passButton.addEventListener('click', passEvent);
-var baseServerUrl = "http://127.0.0.1:8000"
+var baseServerUrl = "Cannot read property 'getUserMedia' of undefined"
 
 if(!localStorage.hasOwnProperty('posta_token'))
 {
