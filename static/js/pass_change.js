@@ -8,7 +8,7 @@ var passButton = document.getElementById('passButton');
 var msgdiv = document.getElementById('message_div');
 
 passButton.addEventListener('click', passEvent);
-var baseServerUrl = "Cannot read property 'getUserMedia' of undefined"
+var baseServerUrl = "https://postarecorder.pythonanywhere.com"
 
 if(!localStorage.hasOwnProperty('posta_token'))
 {
