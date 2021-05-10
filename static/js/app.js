@@ -190,7 +190,7 @@ function createDownloadLink(blob,encoding) {
 		var minutes = `${now.getMinutes()}`.length < 2 ? `0${now.getMinutes()}`:`${now.getMinutes()}`;
 		var seconds = `${now.getSeconds()}`.length < 2 ? `0${now.getSeconds()}`:`${now.getSeconds()}`;
 		var hours = `${now.getHours()}${minutes}${seconds}`;
-		var filename = podcast + '_' + full_date + hours + now.getMilliseconds;
+		var filename = podcast + '_' + full_date + hours;
 		var xhr = new XMLHttpRequest();
     	xhr.onload = function(e) {
 			if (this.readyState === 4) {
