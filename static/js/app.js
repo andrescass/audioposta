@@ -216,6 +216,10 @@ function createDownloadLink(blob,encoding) {
 					if(response.ok)
 					{
 						recordingsList.innerHTML = "";
+						timerUp = 0;
+						timerDown = 120;
+						upTime.innerHTML = "0:00";
+						downTime.innerHTML = "2:00";
 					}
 				}).then(data => {
 					console.log(data);
