@@ -8,7 +8,7 @@ var loginButton = document.getElementById('loginButton');
 var msgdiv = document.getElementById('message_div');
 
 loginButton.addEventListener('click', loginEvent);
-var baseServerUrl = "https://postarecorder.pythonanywhere.com"
+var baseServerUrl = "http://postarecorder.pythonanywhere.com"
 
 if(localStorage.hasOwnProperty('posta_token'))
 {
