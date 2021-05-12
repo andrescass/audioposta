@@ -51,14 +51,18 @@ def PodcastList(request):
         podcasts = Podcast.objects.all()
         podcast_serialized = PodcastSerializer(podcasts, many = True)
         return JsonResponse(podcast_serialized.data, safe=False)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def PodcastPost(request):
     if request.method == 'POST':
-        #audioMsg_data = JSONParser().parse(request)
-        podcast = PodcastSerializer(data = request.data)
-        if podcast.is_valid():
-            podcast.save()
-            return Response(podcast.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(podcast.errors, status=status.HTTP_400_BAD_REQUEST)
+            #audioMsg_data = JSONParser().parse(request)
+            podcast = PodcastSerializer(data = request.data)
+            if podcast.is_valid():
+                podcast.save()
+                return Response(podcast.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(podcast.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
