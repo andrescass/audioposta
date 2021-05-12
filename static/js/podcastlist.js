@@ -20,8 +20,8 @@ var email_order_dir = 'asc';
 var date_order_dir = 'asc';
 var podcast_order_dir = 'asc';
 
-//var baseServerUrl = "http://postarecorder.pythonanywhere.com"
-var baseServerUrl = "http://127.0.0.1:8000"
+var baseServerUrl = "http://postarecorder.pythonanywhere.com"
+//var baseServerUrl = "http://127.0.0.1:8000"
 
 if(localStorage.hasOwnProperty('posta_token'))
 {
