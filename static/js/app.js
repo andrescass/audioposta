@@ -21,7 +21,8 @@ stopButton.addEventListener("click", stopRecording);
 
 // Auxiliar flags
 var hasRecorded = false;
-var baseServerUrl = "https://postarecorder.pythonanywhere.com"
+//var baseServerUrl = "https://postarecorder.pythonanywhere.com"
+var baseServerUrl = "http://127.0.0.1:8000"
 
 // Timers
 var upTime = document.getElementById("up_timer");
@@ -33,6 +34,43 @@ var downChronometerCall;
 
 upTime.innerHTML = "0:00";
 downTime.innerHTML = "2:00";
+
+// Populate podcasts in select
+let podcast_sel = document.getElementById('id_podcast');
+podcast_sel.length = 0;
+
+let defaultOption = document.createElement('option');
+defaultOption.text = "Elegí el podcast";
+
+podcast_sel.add(defaultOption);
+podcast_sel.selectedIndex = 0;
+
+fetch(baseServerUrl+"/api/podcast-get/", {
+	method: 'GET',
+	headers: {
+		'Content-Type': 'application/json',
+	}
+}).then( response => {
+	if(response.ok)
+	{
+		response.json().then(data => {
+			let option;
+			for (let i = 0; i < data.length; i++) {
+				option = document.createElement('option');
+				option.text = data[i].name;
+				option.value = data[i].id;
+				option.setAttribute('shortname', data[i].shortname);
+				podcast_sel.add(option);
+			}
+		})
+	}
+	else{
+		postMsg('Hubo un problema cargando los podcast. Reintentá en unos minutos');
+	}
+	return(response);
+}).catch((error) => {
+	console.error('Error:', error);
+});
 
 function startRecording() {
 
@@ -165,7 +203,8 @@ function createDownloadLink(blob,encoding) {
 	var au = document.createElement('audio');
 	var li = document.createElement('li');
 	var link = document.createElement('a');
-	var but = document.createElement('button')
+	var but = document.createElement('button');
+	var msgban = document.getElementById('msg_ban');
 
 	//add controls to the <audio> element
 	au.controls = true;
@@ -182,56 +221,79 @@ function createDownloadLink(blob,encoding) {
 	but.onclick = function () {
 		let email = document.getElementById('id_email').value;
 		let name = document.getElementById('id_name').value;
-		let podcast = document.getElementById('id_podcast').options[document.getElementById('id_podcast').selectedIndex].value;
-		var now = new Date();
-		var months = `${now.getMonth()+1}`.length < 2 ? `0${now.getMonth()+1}`:`${now.getMonth()+1}`;
-		var day = `${now.getDate()}`.length < 2 ? `0${now.getDate()}`:`${now.getDate()}`;
-		var full_date = `${now.getFullYear()}${months}${day}`;
-		var minutes = `${now.getMinutes()}`.length < 2 ? `0${now.getMinutes()}`:`${now.getMinutes()}`;
-		var seconds = `${now.getSeconds()}`.length < 2 ? `0${now.getSeconds()}`:`${now.getSeconds()}`;
-		var hours = `${now.getHours()}${minutes}${seconds}`;
-		var filename = podcast + '_' + full_date + hours;
-		var xhr = new XMLHttpRequest();
-    	xhr.onload = function(e) {
-			if (this.readyState === 4) {
-				logg = baseServerUrl + JSON.parse(e.target.responseText)["audioFile"];
-				console.log("Server returned: ", logg);
+		let podcast_id = document.getElementById('id_podcast').options[document.getElementById('id_podcast').selectedIndex].value;
+		let podcast_short = document.getElementById('id_podcast').options[document.getElementById('id_podcast').selectedIndex].getAttribute('shortname');
 
-				fetch(baseServerUrl+"/api/entry-post/", {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
-						"author_email": email,
-						"author_name": name,
-						"podcast" : podcast,
-						"date" : full_date,
-						"hour" : hours,
-						"audio_url" : logg
+		// Data validation
+		let abortUpload = false;
+		if(name.length === 0)
+		{
+			msgban.innerHTML = "Se debe ingresar un nombre";
+			abortUpload = true;
+		}
+		if(email.length === 0)
+		{
+			msgban.innerHTML = "Se debe ingresar una dirección de email";
+			abortUpload = true;
+		}
+		if(document.getElementById('id_podcast').selectedIndex === 0)
+		{
+			msgban.innerHTML = "Se debe elegir un podcast";
+			abortUpload = true;
+		}
 
-					})
-				}).then( response => {
-					console.log(response.json());
-					if(response.ok)
-					{
-						recordingsList.innerHTML = "";
-						timerUp = 0;
-						timerDown = 120;
-						upTime.innerHTML = "0:00";
-						downTime.innerHTML = "2:00";
-					}
-				}).then(data => {
-					console.log(data);
-				}).catch((error) => {
-					console.error('Error:', error);
-				});
-			}
-		};
-		var fd = new FormData();
-		fd.append("audioFile", blob, filename+ '-' +encoding);
-		xhr.open("POST", baseServerUrl+"/api/audio-post/", true);
-		xhr.send(fd);
+		if(!abortUpload)
+		{
+			var now = new Date();
+			var months = `${now.getMonth()+1}`.length < 2 ? `0${now.getMonth()+1}`:`${now.getMonth()+1}`;
+			var day = `${now.getDate()}`.length < 2 ? `0${now.getDate()}`:`${now.getDate()}`;
+			var full_date = `${now.getFullYear()}${months}${day}`;
+			var minutes = `${now.getMinutes()}`.length < 2 ? `0${now.getMinutes()}`:`${now.getMinutes()}`;
+			var seconds = `${now.getSeconds()}`.length < 2 ? `0${now.getSeconds()}`:`${now.getSeconds()}`;
+			var hours = `${now.getHours()}${minutes}${seconds}`;
+			var filename = podcast_short + '_' + full_date + hours;
+			var xhr = new XMLHttpRequest();
+			xhr.onload = function(e) {
+				if (this.readyState === 4) {
+					logg = baseServerUrl + JSON.parse(e.target.responseText)["audioFile"];
+					console.log("Server returned: ", logg);
+
+					fetch(baseServerUrl+"/api/entry-post/", {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							"author_email": email,
+							"author_name": name,
+							"podcast" : podcast_id,
+							"date" : full_date,
+							"hour" : hours,
+							"audio_url" : logg
+
+						})
+					}).then( response => {
+						console.log(response.json());
+						if(response.ok)
+						{
+							recordingsList.innerHTML = "";
+							timerUp = 0;
+							timerDown = 120;
+							upTime.innerHTML = "0:00";
+							downTime.innerHTML = "2:00";
+						}
+					}).then(data => {
+						console.log(data);
+					}).catch((error) => {
+						console.error('Error:', error);
+					});
+				}
+			};
+			var fd = new FormData();
+			fd.append("audioFile", blob, filename+ '-' +encoding);
+			xhr.open("POST", baseServerUrl+"/api/audio-post/", true);
+			xhr.send(fd);
+		}
 		
 	}
 
