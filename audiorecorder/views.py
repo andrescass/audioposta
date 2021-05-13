@@ -123,12 +123,11 @@ def AudioMsgDelete(request, pk):
         return JsonResponse({'message': 'Entry deleted'}, status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def GetAudio(request, audio_name):
     if request.method == 'GET':
         audioPath = os.path.join(settings.MEDIA_ROOT, "audios/" + audio_name)
-        audioFile = open(audioPath, 'r')
-        response = FileResponse(audioFile, content_type='whatever')
+        audioFile = open(audioPath, 'rb')
+        response = HttpResponse(audioFile, content_type='audio/mpeg')
         response['Content-Disposition'] = 'attachment; filename="%s"' % audio_name
         return response
 
