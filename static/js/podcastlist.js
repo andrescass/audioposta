@@ -122,7 +122,8 @@ function showLists(hackerList)
                         email:j[0].author_email,
                         dateStr:fullDate,
                         audiomsg : firstAUd,
-                        download : '<a href="' + j[0].audio_url + '" download target="_blank"> Descargar </a>',
+                        //download : '<a href="' + j[0].audio_url + '" download target="_blank"> Descargar </a>',
+                        download : '<a href="' + baseServerUrl + "api/audio-get/" +  j[0].audio_url.split('/')[-1] + '" download target="_blank"> Descargar </a>',
                         remove: '<button class="remove-item-btn" onclick="butc(' + j[0].id + ')">Borrar</button>' }, 
                   ];
                   
