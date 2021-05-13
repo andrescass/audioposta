@@ -16,6 +16,7 @@ urlpatterns = [
     path("api/entry-delete/<pk>", views.AudioMsgDelete),
     path("api/podcast-get/", views.PodcastList),
     path("api/podcast-post/", views.PodcastPost),
+    path("api/audio-get/<audio-name>", views.GetAudio),
     path("api/auth-token/", obtain_auth_token),
     path("api/user-post/", views.UserCreate),
     url(r'^rest-auth/', include('rest_auth.urls')),
