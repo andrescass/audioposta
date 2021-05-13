@@ -8,7 +8,16 @@ var loginButton = document.getElementById('loginButton');
 var msgdiv = document.getElementById('message_div');
 
 loginButton.addEventListener('click', loginEvent);
-var baseServerUrl = "http://postarecorder.pythonanywhere.com"
+var baseServerUrl;
+if (location.protocol !== 'https:'){
+	baseServerUrl = "http://postarecorder.pythonanywhere.com";
+	//baseServerUrl = "http://127.0.0.1:8000"
+}
+else{
+	baseServerUrl = "https://postarecorder.pythonanywhere.com";
+	//baseServerUrl = "http://127.0.0.1:8000"
+}
+//var baseServerUrl = "http://postarecorder.pythonanywhere.com"
 //var baseServerUrl = "http://127.0.0.1:8000"
 
 if(localStorage.hasOwnProperty('posta_token'))

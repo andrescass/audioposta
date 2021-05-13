@@ -20,8 +20,17 @@ var email_order_dir = 'asc';
 var date_order_dir = 'asc';
 var podcast_order_dir = 'asc';
 
-var baseServerUrl = "http://postarecorder.pythonanywhere.com"
+//var baseServerUrl = "http://postarecorder.pythonanywhere.com"
 //var baseServerUrl = "http://127.0.0.1:8000"
+var baseServerUrl;
+if (location.protocol !== 'https:'){
+	baseServerUrl = "http://postarecorder.pythonanywhere.com";
+	//baseServerUrl = "http://127.0.0.1:8000"
+}
+else{
+	baseServerUrl = "https://postarecorder.pythonanywhere.com";
+	//baseServerUrl = "http://127.0.0.1:8000"
+}
 
 if(localStorage.hasOwnProperty('posta_token'))
 {
@@ -113,7 +122,7 @@ function showLists(hackerList)
                         email:j[0].author_email,
                         dateStr:fullDate,
                         audiomsg : firstAUd,
-                        download : '<a href="' + j[0].audio_url + '" download> Descargar </a>',
+                        download : '<a href="' + j[0].audio_url + '" download="downlad"> Descargar </a>',
                         remove: '<button class="remove-item-btn" onclick="butc(' + j[0].id + ')">Borrar</button>' }, 
                   ];
                   
@@ -121,7 +130,7 @@ function showLists(hackerList)
                   for(let i = 1; i < j.length; i++)
                   {
                       audio_i = '<audio controls="controls" src="' + j[i].audio_url + '" type="audio/mpeg">'; 
-                      let down_i = '<a href="' + j[i].audio_url + '" download> Descargar </a>';
+                      let down_i = '<a href="' + j[i].audio_url + '" download="downlad"> Descargar </a>';
                       let fullHour_i = j[i].hour.length === 5? j[i].hour.slice(0, 1) : j[i].hour.slice(0, 2);
                       fullHour_i += ':' + j[i].hour.slice(-4, -2) + ':' + j[i].hour.slice(-2);
                       let fullDate_i = j[i].date.slice(0, 4) + '-' + j[i].date.slice(4, 6) + '-' + j[i].date.slice(6);
