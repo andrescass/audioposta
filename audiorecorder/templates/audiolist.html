@@ -1,61 +1,160 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-	<meta charset="UTF-8">
-
-	<title>Log in - Notas de Voz</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<!-- Latest compiled and minified Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<title>Posta - Mensajes de voz</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <meta name="description" content="Graba tu Mensaje para Posta.fm">
+    <meta name="author" content="Ninja Clan">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'fonts/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
-<body>
-	<!--img src="{% static '/img/logo-posta.png' %}" -->
-    <div class="topnav" id="topnav">
-        <p id="name_salute"></p><a id="logout_nav" href="#">Log out</a><a id="changepass_nav" href="#">Cambiar contraseña</a>    
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+					<a href="/"><img class="logo-web-2" src="{% static 'img/logo-posta.png' %}" alt="Posta"></a>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+						<div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i><span class="mr-2 d-none d-lg-inline text-gray-600 small" id="podcaster_name">Nombre de Usuario</span>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="../changepassword">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Cambiar contraseña
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Salir
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Tabla -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                           <h1 class="h3 mb-2 text-gray-800">Mensajes de voz</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive" id="hacker-list">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Podcast</th>
+                                            <th>Autor</th>
+                                            <th>Email</th>
+                                            <th>Fecha</th>
+                                            <th>Mensaje</th>
+                                            <th class="text-center">Descargar</th>
+											<th class="text-center">Borrar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list" id="t_body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
     </div>
-	<h1>Podcasts</h1>	
+    <!-- End of Page Wrapper -->
 
-	<div id="podcast_list">
-        <!--form id="login_form"-->
-        <div id="hacker-list">
-            <table>
-                <!-- IMPORTANT, class="list" have to be at tbody -->
-                <tr >
-                    <td class="podcast"><a href="#" id="podcast_a" class="sort" data-sort="podcast" data-default-order="asc"><div><b>Podcast</b></div><div id="podcast_ar" class="triangleDivUp"></div></a></td>
-                    <td class="author"><a href="#" id="author_a" class="sort" data-sort="author" data-default-order="asc"><div><b>Autor</b></div><div id="author_ar" class="triangleDivUp"></div></a></td>
-                    <td class="email"><a href="#" id="email_a" class="sort" data-sort="email" data-default-order="asc"><div><b>e-mail</b></div><div id="email_ar" class="triangleDivUp"></div></a></td>
-                    <td class="dateStr"><a href="#" id="date_a" class="sort" data-sort="dateStr" data-default-order="asc"><div><b>Fecha</b></div><div id="date_ar" class="triangleDivUp"></div></a></td>
-                    <td class="audiomsg" style="width: 25em;"><b>Mensaje</b></td>
-                    <td class="download"></td>
-                    <td class="remove"></td>
-                </tr>
-                <tbody class="list" id="t_body">
-                    <input type="search" class="search" placeholder="Filtrar">
-                    
-                  <tr id="f_t">
-                      <td class="podcast"><b>Podcast</b></td>
-                      <td class="author"><b>Autor</b></td>
-                      <td class="email"><b>e-mail</b></td>
-                      <td class="dateStr"><b>Fecha</b></td>
-                      <td class="audiomsg" style="width: 25em;"><b>Mensaje</b></td>
-                      <td class="download">download</td>
-                      <td class="remove"></td>
-                  </tr>
-          </div>
-        <!--/form-->
-	</div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-    <div id="message_div"></div>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Desea Salir?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Seleccione "Logout" para cerrar sesión.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="../login" id="logout_nav">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+	<!-- Borrar Modal-->
+    <div class="modal fade" id="borrarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Desea Borrar este mensaje?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Seleccione "Aceptar" para eliminar.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal" id="cancel_del">Cancelar</button>
+                    <a class="btn btn-primary" href="#" id="accept_del" data-dismiss="modal">Aceptar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- JS -->
+    <script src="{% static '/js/jquery.min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static '/js/jquery.easing.min.js' %}"></script>
+    <script src="{% static '/js/jquery.dataTables.js' %}"></script>
+	<script src="{% static '/js/dataTables.bt.min.js' %}"></script>
 	<script src="{% static '/js/list.js' %}"></script>
     <script src="{% static '/js/podcastlist.js' %}"></script>
-    
+	<script src="{% static '/js/main.js' %}"></script>
 
 </body>
+
 </html>

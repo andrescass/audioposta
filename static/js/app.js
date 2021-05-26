@@ -225,8 +225,9 @@ function createDownloadLink(blob,encoding) {
 	link.innerHTML = link.download;
 
 	// Button to upload
-	but.innerHTML = "Enviar"
-	but.name = "sendBut"
+	but.innerHTML = "<span class='icon text-white-50'><i class='fas fa-share'></i></span><span class='text'>Enviar</span>",
+	but.id = "sendButton",
+	but.name = "sendBut",
 	but.onclick = function () {
 		let email = document.getElementById('id_email').value;
 		let name = document.getElementById('id_name').value;
