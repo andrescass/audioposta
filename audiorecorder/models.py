@@ -36,6 +36,6 @@ class AudioMsg(models.Model):
     author_email = models.TextField(max_length=50, blank=False, null=False)
     date = models.TextField(max_length=50, blank=False, null=False)
     hour = models.TextField(max_length=50, blank=False, null=False)
-    audio_url = models.TextField(max_length=100, blank=False, null=False)
+    audio_url = models.TextField(max_length=200, blank=False, null=False)
 
 
