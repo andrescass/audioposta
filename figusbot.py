@@ -4,7 +4,7 @@ import requests
 from time import sleep
 
 channel_id = '@stock_figus'
-TOKEN = "5603274277:AAFvHZp-q-wS5iuy7qIx6N4m39ses98IFK0"
+TOKEN = ""
 
 # Getting mode, so we could define run function for local and Heroku setup
 #mode = os.getenv("MODE")
