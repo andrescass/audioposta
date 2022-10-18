@@ -4,6 +4,7 @@ import requests
 from time import sleep
 
 channel_id = '@stock_figus'
+channel_id_hb = '@hbotfiguhb'
 TOKEN = ""
 
 # Getting mode, so we could define run function for local and Heroku setup
@@ -25,16 +26,28 @@ if __name__ == '__main__':
 
     url = 'https://www.zonakids.com/productos/pack-x-25-sobres-de-figuritas-fifa-world-cup-qatar-2022/'
 
+    stock = False
+    hb = 0
+
     while True:
         page = requests.get(url)
         soup = BeautifulSoup(page.text, 'lxml')
 
         meta = soup.find('meta', attrs= {'property': 'tiendanube:stock'})
         if meta['content'] == '0':
-            dp.bot.sendMessage(chat_id=channel_id, text="no hay stock")
+            if stock:
+                dp.bot.sendMessage(chat_id=channel_id, text="No hay mas stock. Gracias vuelvan prontos")
+                stock = False
         else:
-            dp.bot.sendMessage(chat_id=channel_id, text="HAY FIGURITAS. CORRÉ! CORRÉ! CORRÉ. Y agadecele a ninjaclan")
+            dp.bot.sendMessage(chat_id=channel_id, text="HAY FIGURITAS EN STOCK. Corré que se acaban!")
+            stock = True
         
-        sleep(120)
+        if hb > 5:
+            dp.bot.sendMessage(chat_id=channel_id_hb, text="Estoy vivo, no te preocupes")
+            hb = 0
+        
+        hb += 1
+        
+        sleep(60)
 
 
